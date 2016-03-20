@@ -1,42 +1,82 @@
+/*
 document.addEventListener("DOMContentLoaded", function(event) { 
 	console.log( "DOMContentLoaded" );
-	//var bgv = new BackgroundVideo();
 });
+*/
+
+var Video = function(name, formats, poster) {
+	if( name === undefined || formats === undefined ) {
+		return;
+	}
+	if( poster !== undefined ) {
+		this.poster = poster;
+	}
+	this.sources = new Array();
+	for(i = 0; i < formats.length; i++) {
+		this.sources[i] = {
+			src: name + "." + formats[i],
+			type: "video/" + formats[i]
+		};
+		//this.video.appendChild(source);
+	}
+}
 
 var BackgroundVideo = function (container) {
-	this.container = container;
+	this.video = document.createElement("video");
+	this.video.setAttribute("id", "BackgroundVideoContainer");
+	this.video.className = "flexible";
+	this.video.autoplay = false;
+	this.video.loop = false;
+	//this.video.setAttribute('poster', name + ".jpg");
+	this.playlist = new Array();
+	this.currentItem = -1;
+	this.addToDOM(container);
 	console.log( "BackgroundVideo constructor" );
 };
 
-BackgroundVideo.prototype.addVideo = function(name, formats) {
+BackgroundVideo.prototype.addToDOM = function(container) {
+	if(container === undefined) {
+		document.body.appendChild(this.video);
+	} else {
+		var parent = document.getElementById(container);
+		if( parent.firstChild == null ) {
+			parent.appendChild(this.video);
+		} else {
+			parent.insertBefore(this.video, parent.firstChild);
+		}
+	}	
+}
+
+BackgroundVideo.prototype.playNextItem = function() {
+	var video = this.playlist[0];
+	console.log( video );
+}
+
+BackgroundVideo.prototype.addVideo = function(name, formats, poster) {
 	if( name === undefined || formats === undefined ) {
 		return;
 	}
 
-	video = document.createElement("video");
-	video.className = "flexible";
-	video.autoplay = true;
-	video.loop = true;
-	video.setAttribute('poster', name + ".jpg");
+	this.playlist[this.playlist.length] = new Video(name, formats, poster);
 	
+	console.log( this.playlist.length );
+	
+	/*
 	for(i = 0; i < formats.length; i++) {
 		var source = document.createElement('source');
 		source.src = name + "." + formats[i];
 		source.type = "video/" + formats[i];
-		video.appendChild(source);
+		this.video.appendChild(source);
 	}
-	
-	if(this.container === undefined) {
-		document.body.appendChild(video);
-	} else {
-		var parent = document.getElementById(this.container);
-		if( parent.firstChild == null ) {
-			parent.appendChild(video);
-		} else {
-			parent.insertBefore(video, parent.firstChild);
-		}
+	*/
+	//this.playlist[this.playlist.length] = video;
+	if(this.playlist.length == 1) {
+		this.playNextItem();
 	}
 }
 
-var bgv = new BackgroundVideo("video");
-bgv.addVideo( "video/Hello-World", [ "mp4", "webm", "ogv" ] );
+var bgv = new BackgroundVideo("myId");
+//document.getElementById("BackgroundVideoContainer").addEventListener('ended', bgv.playNextItem, false);
+
+bgv.addVideo( "video/Hello-World", [ "webm", "mp4", "ogv" ] );
+//bgv.addVideo( "video/OneBigCircle-HD.mp4", [ "mp4" ] );
