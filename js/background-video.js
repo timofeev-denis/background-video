@@ -10,6 +10,8 @@ var Item = function(name, formats, poster) {
 	}
 	if( poster !== undefined ) {
 		this.poster = poster;
+	} else {
+		this.poster = name + ".jpg";
 	}
 	this.sources = new Array();
 	for(i = 0; i < formats.length; i++) {
@@ -17,7 +19,6 @@ var Item = function(name, formats, poster) {
 			src: name + "." + formats[i],
 			type: "video/" + formats[i]
 		};
-		//this.video.appendChild(source);
 	}
 }
 
@@ -27,7 +28,7 @@ function BackgroundVideo(container) {
 	this.video.className = "flexible";
 	this.video.autoplay = true;
 	this.video.loop = false;
-	//this.video.setAttribute('poster', name + ".jpg");
+	this.video.muted = true;
 	this.playlist = new Array();
 	this.currentItem = -1;
 	this.addToDOM(container);
@@ -63,10 +64,8 @@ BackgroundVideo.prototype = {
 			this.currentItem = 0;
 		}
 		
-		console.log("playNextItem, this.currentItem is " + this.currentItem);
-		
 		var item = this.playlist[this.currentItem];
-		console.log(this.video);
+		this.video.poster = item.poster;
 		// Clean video tag
 		while (this.video.firstChild) {
 			this.video.removeChild(this.video.firstChild);
@@ -86,7 +85,6 @@ BackgroundVideo.prototype = {
 		if( name === undefined || formats === undefined ) {
 			return;
 		}
-		//console.log( "this.playlist.length: " + this.playlist.length );
 		this.playlist[this.playlist.length] = new Item(name, formats, poster);
 		
 		if(this.playlist.length == 1) {
@@ -96,6 +94,8 @@ BackgroundVideo.prototype = {
 	}
 	
 }
+
+
 
 var bgv = new BackgroundVideo("myId");
 
