@@ -5,26 +5,26 @@
 	<style>
 
 	*, *:after, *:before {
-	  box-sizing: border-box;
-	  -moz-box-sizing: border-box;
+            box-sizing: border-box;
+            -moz-box-sizing: border-box;
 	}
 	* {margin:0;padding:0;border:0 none;position: relative;}
 	html, body {
-	  min-height: 100vh;
+            min-height: 100vh;
 	}
 	.flexible {
-	  position:absolute;
-	  object-fit: cover;
-	  width: 100%;
-	  height: 100%;
-	  z-index: -999;
-	  top: 0;
-	  left: 0;
+            position:absolute;
+            object-fit: cover;
+            width: 100%;
+            height: 100%;
+            z-index: -999;
+            top: 0;
+            left: 0;
 	}
 
 	.myClass {
-		height: 500px;
-		overflow: hidden;
+            height: 500px;
+            overflow: hidden;
 	}
 	</style>
 </head>
@@ -49,4 +49,10 @@ Ut semper magna velit, at vehicula lorem dictum sed. Maecenas et lobortis leo, e
 </div>
 
 <script src="js/background-video.js"></script>
+<script>
+var bgv = new BackgroundVideo("myId");
+bgv.addVideo( "video/Hello-World", [ "mp4", "ogv" ] );
+bgv.addVideo( "video/SampleVideo_1280x720_1mb", [ "mp4"] );
+bgv.addVideo( "video/OneBigCircle-HD.mp4", [ "mp4" ] );
+</script>
 </body>
