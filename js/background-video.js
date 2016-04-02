@@ -23,76 +23,118 @@ var Item = function(name, formats, poster) {
 }
 
 function BackgroundVideo(container) {
-	this.video = document.createElement("video");
-	this.video.setAttribute("id", "BackgroundVideoContainer");
-	this.video.className = "flexible";
-	this.video.autoplay = true;
-	this.video.loop = false;
-	this.video.muted = true;
-	this.playlist = new Array();
-	this.currentItem = -1;
-	this.addToDOM(container);
-	console.log( "BackgroundVideo constructor" );
-	this.video.addEventListener("ended", this);
+    if(container === undefined) {
+        this.container = document.body;
+    } else {
+        this.container = document.getElementById(container);
+    }
+    /*
+    this.video = document.createElement("video");
+    this.video.setAttribute("id", "BackgroundVideoContainer");
+    this.video.className = "flexible";
+    this.video.autoplay = true;
+    this.video.loop = false;
+    this.video.muted = true;
+    this.playlist = new Array();
+    this.currentItem = -1;
+    this.videoCounter = 0;
+    //this.addToDOM();
+    console.log( "BackgroundVideo constructor" );
+    this.video.addEventListener("ended", this);
+    */
+    this.currentItem = -1;
+    this.videoCounter = 0;
+    // All videos
+    this.videos = new Array();
+    // Loaded videos
+    this.playlist = new Array();
 };
 
 BackgroundVideo.prototype = {
     
-	// Implement the `EventListener` interface   
+    // Implement the `EventListener` interface   
     handleEvent: function(event) {
+        console.log("EVENT: " + event.type + " " + event.target.id);
         switch (event.type) {
-            case "ended": return this.playNextItem();
+            case "ended": 
+                return this.playNextItem();
+                break;
+            case "canplaythrough": 
+                for(i = 0; i < this.videos.length; i++) {
+                    if(this.videos[i].id == event.target.id) {
+                        console.log( " skip " + event.target.id );
+                        return false;
+                    }
+                }
+                //this.playlist.push(event.target);
+                console.log( " loaded " + event.target.id );
+                //console.log( this.playlist );
+                break;
         }
     },
-	
-	addToDOM: function(container) {
-		if(container === undefined) {
-			document.body.appendChild(this.video);
-		} else {
-			var parent = document.getElementById(container);
-			if( parent.firstChild == null ) {
-				parent.appendChild(this.video);
-			} else {
-				parent.insertBefore(this.video, parent.firstChild);
-			}
-		}
-	},
-	
-	playNextItem: function() {
-		this.currentItem++;
-		if( this.currentItem >= this.playlist.length ) {
-			this.currentItem = 0;
-		}
-		
-		var item = this.playlist[this.currentItem];
-		this.video.poster = item.poster;
-		// Clean video tag
-		while (this.video.firstChild) {
-			this.video.removeChild(this.video.firstChild);
-		}
-		// Add source tags
-		for(i = 0; i < item.sources.length; i++) {
-			var source = document.createElement('source');
-			source.src = item.sources[i].src;
-			source.type = item.sources[i].type;
-			this.video.appendChild(source);
-		}
-		
-		this.video.load();
-	},
 
-	addVideo: function(name, formats, poster) {
-		if( name === undefined || formats === undefined ) {
-			return;
-		}
-		this.playlist[this.playlist.length] = new Item(name, formats, poster);
-		
-		if(this.playlist.length == 1) {
-			// First video added - play it
-			this.playNextItem();
-		}
+    initVideoTag: function(e, name, formats, poster) {
+	if( poster !== undefined ) {
+            e.poster = poster;
+	} else {
+            e.poster = name + ".jpg";
 	}
+        e.setAttribute("id", "BackgroundVideo-" + this.videoCounter++);
+        e.className = "flexible";
+        e.preload = "none";
+        e.loop = false;
+        e.muted = true;
 	
+	for(i = 0; i < formats.length; i++) {
+            var source = document.createElement('source');
+            source.src = name + "." + formats[i];
+            source.type = "video/" + formats[i];
+            e.appendChild(source);
+	}
+    },
+    
+    addVideo: function(name, formats, poster) {
+        if( name === undefined || formats === undefined ) {
+            return;
+        }
+        var newVideo = document.createElement("video");
+        this.initVideoTag(newVideo, name, formats, poster);
+        newVideo.addEventListener("ended", this);
+        //newVideo.addEventListener("canplaythrough", this);
+        this.addToDOM(newVideo);
+        this.videos.push(newVideo);
+        if(this.videos.length == 1) {
+            // First video added - play it and put to playlist
+            //this.videos[0].play();
+            this.playNextItem();
+        }
+    },
+
+    addToDOM: function(e) {
+        if( this.container.firstChild == null ) {
+            this.container.appendChild(e);
+        } else {
+            this.container.insertBefore(e, this.container.firstChild);
+        }
+    },
+
+    playNextItem: function() {
+        this.currentItem++;
+        if( this.currentItem >= this.videos.length ) {
+            this.currentItem = 0;
+        }
+        console.log( "Trying to play item #" + this.currentItem );
+        var item = this.videos[this.currentItem];
+        if(item.readyState == 4) { // 4 - HAVE_ENOUGH_DATA
+            item.play();
+        } else {
+            console.log( " loading item #" + this.currentItem );
+            item.load();
+            this.currentItem = 0;
+            this.videos[0].play();
+        }
+    }
+    
 }
 
 
