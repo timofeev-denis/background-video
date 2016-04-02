@@ -21,7 +21,6 @@ function BackgroundVideo(options) {
         return;
     }
     for(var i = 0; i < options.video.length; i++) {
-        console.log("For " + i + ", length = " + options.video.length);
         this.addVideo(options.video[i]);
     }
 };
@@ -78,8 +77,6 @@ BackgroundVideo.prototype = {
     },
     
     addVideo: function(item) {
-        console.log("addVideo");
-
         if(this.isMobile) {
             return;
         }
