@@ -36,9 +36,37 @@
 <script src="js/background-video.js"></script>
 <link type="text/css" href="css/background-video.css" rel="stylesheet" />
 <script>
-var bgv = new BackgroundVideo();
-bgv.addVideo( "video/SampleVideo_1280x720_1mb.mp4" );
-bgv.addVideo( "video/Hello-World.ogv", [ "mp4" ] );
-bgv.addVideo( "video/OneBigCircle-HD.mp4.mp4" );
+new BackgroundVideo({
+    /*
+     * container [optional]: id of the element, where to add video background. 
+     * If ommited video background is added to the BODY element.
+     * Example:
+     * container: "myId",
+     */
+    
+    /*
+     * video: list of video files
+     * 
+     * Note: If you have one video in different formats (mp4, webm, ogv, etc)
+     * you can add them all to ensure browser compatibility.
+     * Use 'formats' option to list all additional formats.
+     */
+    video: [
+        {
+            file: "video/SampleVideo_1280x720_1mb.mp4"
+        },
+        {
+            file: "video/Hello-World.ogv",
+            formats: [ "mp4", "webm" ]
+        },
+        {
+            file: "video/OneBigCircle-HD.mp4.mp4"
+        }
+    ],
+    /*
+     * To save traffic mobile users see a still image instead of video.
+     */
+    mobileImg: "img/Hello-World.jpg"
+});
 </script>
 </body>

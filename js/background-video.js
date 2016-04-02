@@ -1,19 +1,28 @@
-function BackgroundVideo(container) {
-    if(container === undefined) {
+function BackgroundVideo(options) {
+    if(options.container === undefined) {
         this.container = document.body;
     } else {
-        this.container = document.getElementById(container);
+        this.container = document.getElementById(options.container);
     }
     this.currentItem = -1;
     this.videoCounter = 0;
     this.videos = new Array();
     
     if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
-    //if( true ) {
-        this.container.style.backgroundImage = "url('img/Hello-World.jpg')";
+        if(options.mobileImg !== undefined) {
+            this.container.style.backgroundImage = "url(" + options.mobileImg + ")";
+        }
         this.isMobile = true;
+        return;
     } else {
         this.isMobile = false;
+    }
+    if(options.video === undefined) {
+        return;
+    }
+    for(var i = 0; i < options.video.length; i++) {
+        console.log("For " + i + ", length = " + options.video.length);
+        this.addVideo(options.video[i]);
     }
 };
 
@@ -59,7 +68,7 @@ BackgroundVideo.prototype = {
         e.appendChild(source);
         if(formats != undefined) {
             // Add formats
-            for(i = 0; i < formats.length; i++) {
+            for(var i = 0; i < formats.length; i++) {
                 source = document.createElement('source');
                 source.src = base + "." + formats[i];
                 source.type = "video/" + formats[i];
@@ -68,15 +77,17 @@ BackgroundVideo.prototype = {
         }
     },
     
-    addVideo: function(name, formats, poster) {
+    addVideo: function(item) {
+        console.log("addVideo");
+
         if(this.isMobile) {
             return;
         }
-        if( name === undefined ) {
+        if( item.file === undefined ) {
             return;
         }
         var newVideo = document.createElement("video");
-        this.initVideoTag(newVideo, name, formats, poster);
+        this.initVideoTag(newVideo, item.file, item.formats, item.poster);
         newVideo.addEventListener("ended", this);
         newVideo.addEventListener("canplaythrough", this);
         this.addToDOM(newVideo);
@@ -118,13 +129,35 @@ BackgroundVideo.prototype = {
 
 /**
 Usage:
-
-// Create main object
-var bgv = new BackgroundVideo("myId");
         
-// Add video (file name without extension, formats)
-bgv.addVideo( "video/Hello-World", [ "mp4", "ogv" ] );
-bgv.addVideo( "video/SampleVideo_1280x720_1mb", [ "mp4"] );
-bgv.addVideo( "video/OneBigCircle-HD.mp4", [ "mp4" ] );
+container [optional]: id of the element, where to add video background. 
+If ommited video background is added to the BODY element.
+        
+video: list of video files
+Note: If you have one video in different formats (mp4, webm, ogv, etc)
+you can add them all to ensure browser compatibility.
+Use 'formats' option to list all additional formats.
 
- */
+mobileImg: image file for mobile users. To save traffic mobile users see a still image instead of video.
+       
+        
+new BackgroundVideo({
+    // container: "myId",
+    
+    video: [
+        {
+            file: "video/SampleVideo_1280x720_1mb.mp4"
+        },
+        {
+            file: "video/Hello-World.ogv",
+            formats: [ "mp4", "webm" ]
+        },
+        {
+            file: "video/OneBigCircle-HD.mp4.mp4"
+        }
+    ],
+        
+    mobileImg: "img/Hello-World.jpg"
+});
+
+*/
