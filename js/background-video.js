@@ -6,7 +6,6 @@ function BackgroundVideo(container) {
     }
     this.currentItem = -1;
     this.videoCounter = 0;
-    // All videos
     this.videos = new Array();
 };
 
@@ -26,7 +25,7 @@ BackgroundVideo.prototype = {
                 do {
                     i++;
                 } while(i < this.videos.length && this.videos[i].readyState == 4);
-                if( i < this.videos.length && this.videos[i].readyState != 4) {
+                if( i < this.videos.length ) {
                     this.videos[i].load();
                 }
                 break;
@@ -34,10 +33,9 @@ BackgroundVideo.prototype = {
     },
 
     initVideoTag: function(e, name, formats, poster) {
+        var base = name.substring(0, name.lastIndexOf("."));
 	if( poster !== undefined ) {
             e.poster = poster;
-	} else {
-            e.poster = name + ".jpg";
 	}
         e.setAttribute("id", "BackgroundVideo-" + this.videoCounter++);
         e.className = "flexible";
@@ -47,17 +45,23 @@ BackgroundVideo.prototype = {
         if(this.videoCounter > 1) {
             e.style.display = "none";
         }
-	
-	for(i = 0; i < formats.length; i++) {
-            var source = document.createElement('source');
-            source.src = name + "." + formats[i];
-            source.type = "video/" + formats[i];
-            e.appendChild(source);
-	}
+        var source = document.createElement('source');
+        source.src = name;
+        source.type = "video/" + name.substr(name.lastIndexOf(".") + 1);
+        e.appendChild(source);
+        if(formats != undefined) {
+            // Add formats
+            for(i = 0; i < formats.length; i++) {
+                source = document.createElement('source');
+                source.src = base + "." + formats[i];
+                source.type = "video/" + formats[i];
+                e.appendChild(source);
+            }
+        }
     },
     
     addVideo: function(name, formats, poster) {
-        if( name === undefined || formats === undefined ) {
+        if( name === undefined ) {
             return;
         }
         var newVideo = document.createElement("video");
