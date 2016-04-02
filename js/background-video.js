@@ -84,6 +84,9 @@ BackgroundVideo.prototype = {
         e.preload = "none";
         e.loop = false;
         e.muted = true;
+        if(this.videoCounter > 1) {
+            e.style.display = "none";
+        }
 	
 	for(i = 0; i < formats.length; i++) {
             var source = document.createElement('source');
@@ -119,19 +122,24 @@ BackgroundVideo.prototype = {
     },
 
     playNextItem: function() {
+        var prevItem = this.currentItem;
         this.currentItem++;
         if( this.currentItem >= this.videos.length ) {
             this.currentItem = 0;
         }
-        console.log( "Trying to play item #" + this.currentItem );
         var item = this.videos[this.currentItem];
         if(item.readyState == 4) { // 4 - HAVE_ENOUGH_DATA
+            console.log( "Playing item #" + this.currentItem );
             item.play();
         } else {
-            console.log( " loading item #" + this.currentItem );
+            console.log( "Loading item #" + this.currentItem  + " & starting over");
             item.load();
             this.currentItem = 0;
             this.videos[0].play();
+        }
+        if(prevItem != undefined && this.videos[prevItem] != undefined && prevItem != this.currentItem) {
+            document.getElementById(this.videos[prevItem].id).style.display = "none";
+            document.getElementById(this.videos[this.currentItem].id).style.display = "";
         }
     }
     
