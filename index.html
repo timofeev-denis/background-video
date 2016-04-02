@@ -3,54 +3,40 @@
 <head>
 	<meta charset="UTF-8">
 	<style>
-
-	*, *:after, *:before {
-            box-sizing: border-box;
-            -moz-box-sizing: border-box;
-	}
-	* {margin:0;padding:0;border:0 none;position: relative;}
-	html, body {
-            min-height: 100vh;
-	}
-	.flexible {
-            position:absolute;
-            object-fit: cover;
-            width: 100%;
-            height: 100%;
-            z-index: -999;
-            top: 0;
-            left: 0;
-	}
-
-	.myClass {
-            height: 500px;
-            overflow: hidden;
-	}
+            p {
+                font-size: 1.6em;
+                color: #eeeeee;
+                padding: 1em;
+            }
+            body {
+            }
 	</style>
 </head>
 <body>
-<br />
-<br />
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec pharetra facilisis dolor nec aliquam. Vivamus porttitor lacinia luctus. Curabitur ut tellus porttitor urna gravida convallis ut et mi. Fusce in odio viverra, hendrerit augue a, fringilla quam. Curabitur sed massa at lorem consectetur tempor at at enim. Ut ac mi at risus dapibus mollis. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam vitae orci enim. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Duis lacinia nisl tincidunt magna pretium scelerisque.
-<br />
-<br />
-Phasellus faucibus maximus lectus quis convallis. Aliquam neque arcu, tempus vel nibh nec, venenatis gravida mi. Cras eros urna, mattis ac ex eget, aliquam facilisis lectus. Morbi bibendum rutrum eleifend. Nam efficitur semper nibh, quis faucibus magna aliquet id. Donec sed sapien accumsan, vehicula quam eu, luctus augue. Ut at aliquet erat, nec malesuada sem. Donec a dapibus velit, sed mattis massa. Ut a leo cursus, eleifend elit fermentum, euismod augue. Nulla fringilla euismod risus, a congue nisl eleifend vel.
-<br />
-<br />
-Integer ut erat ullamcorper, rhoncus sapien eu, vestibulum sapien. Etiam turpis eros, blandit eget dui sed, rhoncus aliquam est. Mauris ante diam, porttitor id aliquet eu, ultrices vel nulla. Sed ut augue dictum, ullamcorper erat eu, lobortis dui. Nam sed gravida tortor. Sed tempor ipsum vitae consequat pellentesque. Maecenas vestibulum turpis id nulla scelerisque auctor. Pellentesque a diam sagittis, rutrum nisl luctus, venenatis nibh. Vestibulum euismod, diam at laoreet blandit, risus arcu condimentum nulla, euismod fermentum dui odio quis sapien. Sed sed dui id est lobortis scelerisque non non nunc. Nunc consectetur turpis et risus pretium, eu posuere metus placerat. Morbi aliquet varius nisi, quis molestie tortor commodo id. In luctus at metus eget tempor. In semper id elit id mollis.
-<br />
-<br />
-Ut semper magna velit, at vehicula lorem dictum sed. Maecenas et lobortis leo, eu tincidunt nisi. Donec in pretium ligula. Vestibulum quam sem, aliquet et malesuada nec, gravida vel orci. Morbi ornare nisl lectus, eget laoreet est feugiat et. Nulla pretium nisl dolor, vel ullamcorper ex cursus sit amet. Nullam vestibulum arcu ac tristique volutpat. 
-<br />
-<br />
+    <p>
+        <br />
+        <br />
+        This is an example of video background.
+        <br />
+        <br />
+        Playlist is supported.
+        <br />
+        <br />
+        Video is cached in the background.
+        <br />
+        <br />
+        You can put any content on the page.
+        <br />
+        <br />
+    </p>
 <div id="myId" class="myClass">
-	<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec pharetra facilisis dolor nec aliquam. Vivamus porttitor lacinia luctus. Curabitur ut tellus porttitor urna gravida convallis ut et mi. Fusce in odio viverra, hendrerit augue a, fringilla quam. Curabitur sed massa at lorem consectetur tempor at at enim. Ut ac mi at risus dapibus mollis. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam vitae orci enim. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Duis lacinia nisl tincidunt magna pretium scelerisque.</p>
+    <p>You can put any content inside the video area.</p>
 </div>
 
 <script src="js/background-video.js"></script>
+<link type="text/css" href="css/background-video.css" rel="stylesheet" />
 <script>
-var bgv = new BackgroundVideo("myId");
+var bgv = new BackgroundVideo();
 bgv.addVideo( "video/SampleVideo_1280x720_1mb.mp4" );
 bgv.addVideo( "video/Hello-World.ogv", [ "mp4" ] );
 bgv.addVideo( "video/OneBigCircle-HD.mp4.mp4" );

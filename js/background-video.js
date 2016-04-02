@@ -7,6 +7,14 @@ function BackgroundVideo(container) {
     this.currentItem = -1;
     this.videoCounter = 0;
     this.videos = new Array();
+    
+    if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+    //if( true ) {
+        this.container.style.backgroundImage = "url('img/Hello-World.jpg')";
+        this.isMobile = true;
+    } else {
+        this.isMobile = false;
+    }
 };
 
 BackgroundVideo.prototype = {
@@ -61,6 +69,9 @@ BackgroundVideo.prototype = {
     },
     
     addVideo: function(name, formats, poster) {
+        if(this.isMobile) {
+            return;
+        }
         if( name === undefined ) {
             return;
         }
