@@ -3,13 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<style>
-            p {
-                font-size: 1.6em;
-                color: #eeeeee;
-                padding: 1em;
-            }
-            body {
-            }
+
 	</style>
 </head>
 <body>
@@ -39,10 +33,11 @@
 new BackgroundVideo({
     /*
      * container [optional]: id of the element, where to add video background. 
-     * If ommited video background is added to the BODY element.
+     * If ommited, video background is added to the BODY element.
      * Example:
      * container: "myId",
      */
+	container: "myId",
     
     /*
      * video: list of video files
@@ -52,6 +47,7 @@ new BackgroundVideo({
      * Use 'formats' option to list all additional formats.
      */
     video: [
+	/*
         {
             file: "video/SampleVideo_1280x720_1mb.mp4"
         },
@@ -59,6 +55,7 @@ new BackgroundVideo({
             file: "video/Hello-World.ogv",
             formats: [ "mp4", "webm" ]
         },
+	*/
         {
             file: "video/OneBigCircle-HD.mp4.mp4"
         }

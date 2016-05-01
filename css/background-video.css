@@ -1,9 +1,38 @@
-.flexible {
-    position:absolute;
-    object-fit: cover;
-    width: 100%;
-    height: 100%;
-    z-index: -999;
-    top: 0;
-    left: 0;
+*, *:after, *:before {
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
 }
+* {margin:0;padding:0;border:0 none;position: relative;}
+
+body {
+    margin: 0;
+}
+
+html, body {
+	min-height: 100vh;
+}
+.flexible {
+	position:absolute;
+	object-fit: cover;
+	width: 100%;
+	height: 100%;
+	z-index: -999;
+	top: 0;
+	left: 0;
+}
+
+.myClass {
+	height: 200px;
+	overflow: hidden;
+}
+
+.hidden {
+	display: none;
+}
+
+.content {
+	color: #eee;
+	font-size: 1.5em;
+}
+
+
