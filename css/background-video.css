@@ -1,6 +1,6 @@
 *, *:after, *:before {
-	box-sizing: border-box;
-	-moz-box-sizing: border-box;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
 }
 * {margin:0;padding:0;border:0 none;position: relative;}
 
@@ -12,29 +12,35 @@ html, body {
     min-height: 100vh;
 }
 .flexible {
-	position:absolute;
-	object-fit: cover;
-	width: 100%;
-	height: 100%;
-	z-index: -999;
-	top: 0;
-	left: 0;
+    position:absolute;
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    z-index: -999;
+    top: 0;
+    left: 0;
 }
 
 .myClass {
-	height: 200px;
-	overflow: hidden;
-        font-size: 20pt;
-        color: #eee;
+    height: 200px;
+    overflow: hidden;
+    color: #eee;
+    padding: 3em;
+}
+
+.myClass ul li {
+    font-family: Arial;
+    font-size: 20pt;
+    line-height: 30pt;
 }
 
 .hidden {
-	display: none;
+    display: none;
 }
 
 .content {
-	color: #eee;
-	font-size: 1.5em;
+    color: #eee;
+    font-size: 1.5em;
 }
 
 .bgv-overlay {

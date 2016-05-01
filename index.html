@@ -7,24 +7,14 @@
 	</style>
 </head>
 <body>
-    <p>
-        <br />
-        <br />
-        This is an example of video background.
-        <br />
-        <br />
-        Playlist is supported.
-        <br />
-        <br />
-        Video is cached in the background.
-        <br />
-        <br />
-        You can put any content on the page.
-        <br />
-        <br />
-    </p>
+
 <div id="myId" class="myClass">
-    <p>You can put any content inside the video area.</p>
+    <ul>
+        <li>This is an example of video background</li>
+        <li>Playlist is supported</li>
+        <li>Video is cached in the background</li>
+        <li>You can put any content over the top of the video</li>
+    </ul>
 </div>
 
 <script src="js/background-video.js"></script>
@@ -37,7 +27,6 @@ new BackgroundVideo({
      * Example:
      * container: "myId",
      */
-	container: "myId",
     
     /*
      * video: list of video files
@@ -48,7 +37,11 @@ new BackgroundVideo({
      */
     video: [
         {
-            file: "video/SampleVideo_1280x720_1mb.mp4"
+            file: "video/SampleVideo_1280x720_1mb.mp4",
+            formats: ["webm", "ogv"]
+        },
+        {
+            file: "video/OneBigCircle-HD.mp4.mp4"
         }
     ],
     /*
@@ -56,23 +49,10 @@ new BackgroundVideo({
      */
     mobileImg: "img/Hello-World.jpg",
     /*
-     * Overlay image to sit over the top of the video
+     * Overlay image to sit over the top of the video (optional)
      */
-    overlay: "img/dots2-dark.png"
+    overlay: "img/dots1.png"
 });
 
-new BackgroundVideo({
-    video: [
-        {
-            file: "video/OneBigCircle-HD.mp4.mp4"
-        },
-        /*
-        {
-            file: "video/Hello-World.ogv",
-            formats: [ "mp4", "webm" ]
-        }
-        */
-    ]
-});
 </script>
 </body>
