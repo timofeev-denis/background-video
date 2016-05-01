@@ -47,23 +47,32 @@ new BackgroundVideo({
      * Use 'formats' option to list all additional formats.
      */
     video: [
-	/*
         {
             file: "video/SampleVideo_1280x720_1mb.mp4"
-        },
-        {
-            file: "video/Hello-World.ogv",
-            formats: [ "mp4", "webm" ]
-        },
-	*/
-        {
-            file: "video/OneBigCircle-HD.mp4.mp4"
         }
     ],
     /*
      * To save traffic mobile users see a still image instead of video.
      */
-    mobileImg: "img/Hello-World.jpg"
+    mobileImg: "img/Hello-World.jpg",
+    /*
+     * Overlay image to sit over the top of the video
+     */
+    overlay: "img/dots2-dark.png"
+});
+
+new BackgroundVideo({
+    video: [
+        {
+            file: "video/OneBigCircle-HD.mp4.mp4"
+        },
+        /*
+        {
+            file: "video/Hello-World.ogv",
+            formats: [ "mp4", "webm" ]
+        }
+        */
+    ]
 });
 </script>
 </body>

@@ -23,6 +23,12 @@ function BackgroundVideo(options) {
     for(var i = 0; i < options.video.length; i++) {
         this.addVideo(options.video[i]);
     }
+    if (options.overlay !== undefined) {
+        var overlayDiv = document.createElement("div");
+        overlayDiv.className = "bgv-overlay";
+        overlayDiv.style.backgroundImage = "url(" + options.overlay + ")";
+        this.container.appendChild(overlayDiv);
+    }
 };
 
 BackgroundVideo.prototype = {
@@ -50,9 +56,9 @@ BackgroundVideo.prototype = {
 
     initVideoTag: function(e, name, formats, poster) {
         var base = name.substring(0, name.lastIndexOf("."));
-	if( poster !== undefined ) {
-            e.poster = poster;
-	}
+		if( poster !== undefined ) {
+			e.poster = poster;
+		}
         e.setAttribute("id", "BackgroundVideo-" + this.videoCounter++);
         e.className = "flexible";
         e.preload = "none";

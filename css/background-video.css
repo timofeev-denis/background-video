@@ -9,7 +9,7 @@ body {
 }
 
 html, body {
-	min-height: 100vh;
+    min-height: 100vh;
 }
 .flexible {
 	position:absolute;
@@ -24,6 +24,8 @@ html, body {
 .myClass {
 	height: 200px;
 	overflow: hidden;
+        font-size: 20pt;
+        color: #eee;
 }
 
 .hidden {
@@ -35,4 +37,18 @@ html, body {
 	font-size: 1.5em;
 }
 
+.bgv-overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    display: block;
+    background-image: none;
+    background-repeat: repeat;
+    z-index: -998;
+}
 
+p {
+    color: #eee;
+}
