@@ -14,7 +14,6 @@
 <script src="js/background-video.js"></script>   
 <link type="text/css" href="css/background-video.css" rel="stylesheet" />
 ```
-- Upload you video files
 - Add script and list video files:
 ```
 <script>
