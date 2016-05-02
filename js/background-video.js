@@ -3,6 +3,7 @@ function BackgroundVideo(options) {
         this.container = document.body;
     } else {
         this.container = document.getElementById(options.container);
+		this.container.style.position = "relative";
     }
     this.currentItem = -1;
     this.videoCounter = 0;
