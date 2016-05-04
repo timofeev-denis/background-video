@@ -28,16 +28,19 @@ new BackgroundVideo({
 ### Additional options
 To play video in a container element, add `container` option and specify container id:
 ```
+<script>
 new BackgroundVideo({
     container: "myElement",
     video: [
         {file: "video/myvideo.mp4"}
     ]
 });
+</script>
 ```
 
 To have same video in few different formats, add `formats` keyword after filename and list additional formats:
 ```
+<script>
 new BackgroundVideo({
     video: [
         {
@@ -46,14 +49,17 @@ new BackgroundVideo({
         }
     ]
 });
+</script>
 ```
 
 To add overlay image, add `overlay` option and specify overlay image URL:
 ```
+<script>
 new BackgroundVideo({
     overlay: "img/dots1.png",
     video: [
         {file: "video/myvideo.mp4"}
     ]
 });
+</script>
 ```
