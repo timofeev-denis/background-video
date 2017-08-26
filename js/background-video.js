@@ -12,6 +12,7 @@ function BackgroundVideo(options) {
     if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
         if (options.mobileImg !== undefined) {
             this.container.style.backgroundImage = "url(" + options.mobileImg + ")";
+            this.container.style.backgroundSize = "cover";
         }
         this.isMobile = true;
         return;
